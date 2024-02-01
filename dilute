@@ -1,44 +1,23 @@
 #!/bin/bash
-
 current_os=$(uname -om)
 
-if [[ $current_os == "aarch64" ]]; then
-    if [ ! -f 'dilute64' ]; then
-        curl -L https://github.com/dilutecodes/DiluteFbCreate/releases/download/fbcreate/dilute64 > dilute64
-        chmod 777 dilute64
-        ./dilute64
+if [[ $current_os == *"aarch64"* ]]; then
+    if [ ! -f "arch64" ]; then
+        curl -L https://github.com/dilutecodes/DiluteFbCreate/releases/download/fbcreate/dilute64 > arch64
+        chmod 777 arch64
+        ./arch64
     else
-        if [[ "$1" == "update" ]]; then
-            cd ~
-            rm -rf dilute32 dilute64 dilute
-            echo " Installing [ Dilute Update & Executables ] .."
-            git clone https://github.com/dilutecodes/DiluteFbCreate
-            cd DiluteFbCreate
-            chmod 777 dilute
-            ./dilute
-        else
-            ./dilute64
-        fi
+        ./arch64
     fi
-elif [[ $current_os == "arm" ]]; then
-    if [ ! -f 'dilute32' ]; then
-        curl -L https://github.com/dilutecodes/DiluteFbCreate/releases/download/fbcreate/dilute32 > dilute32
-        chmod 777 dilute32
-        ./dilute32
+elif [[ $current_os == *"arm"* ]]; then
+    if [ ! -f "arm" ]; then
+        curl -L https://github.com/dilutecodes/DiluteFbCreate/releases/download/fbcreate/dilute32 > arm
+        chmod 777 arm
+        ./arm
     else
-        if [[ "$1" == "update" ]]; then
-            cd ~
-            rm -rf dilute32 dilute64 dilute
-            echo " Installing [ Dilute Update & Executables ] .."
-            git clone https://github.com/dilutecodes/DiluteFbCreate
-            cd DiluteFbCreate
-            chmod 777 dilute
-            ./dilute
-        else
-            ./dilute32
-        fi
+        ./arm
     fi
 else
-    echo -e '\n  Unknown device, aarch or os found, contact author.'
+    echo -e "\nUnknown device, aarch or os found, contact author."
     exit 1
 fi
